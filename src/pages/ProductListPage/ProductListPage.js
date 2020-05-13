@@ -43,21 +43,13 @@ class ProductListPage extends Component {
     const { query } = this.state;
     const categoryID = event.target.value;
     this.setState({ categoryID });
-    if (query) {
-      API.getProductsFromCategoryAndQuery(categoryID, query)
-        .then(({ results }) => this.setState({ productsList: results }));
-    } else {
-      API.getCategory(categoryID).then(({ results }) => this.setState({ productsList: results }));
-    }
+    API.getProductsFromCategoryAndQuery(categoryID, query)
+      .then(({ results }) => this.setState({ productsList: results }));
   }
 
   handleQueryButton() {
-    const { productsList, query, categoryID } = this.state;
-    if (productsList.length > 0) {
-      API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) => this.setState({ productsList: results }));
-    } else {
-      API.getQuery(query).then(({ results }) => this.setState({ productsList: results }));
-    }
+    const { query, categoryID } = this.state;
+    API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) => this.setState({ productsList: results }));
   }
 
   renderHeader() {
