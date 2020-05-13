@@ -38,7 +38,7 @@ class ProductListPage extends Component {
     const { query } = this.state;
     this.setState({ categoryID: event.target.value });
     if (query) {
-      API.getQueryNCategory(event.target.value, query)
+      API.getProductsFromCategoryAndQuery(event.target.value, query)
         .then((r) => this.setState({ list: r.results }));
     } else {
       API.getCategory(event.target.value).then((r) => this.setState({ list: r.results }));
@@ -48,7 +48,7 @@ class ProductListPage extends Component {
   handleQueryButton() {
     const { list, query, categoryID } = this.state;
     if (list.length > 0) {
-      API.getQueryNCategory(categoryID, query).then((r) => this.setState({ list: r.results }));
+      API.getProductsFromCategoryAndQuery(categoryID, query).then((r) => this.setState({ list: r.results }));
     } else {
       API.getQuery(query).then((r) => this.setState({ list: r.results }));
     }
