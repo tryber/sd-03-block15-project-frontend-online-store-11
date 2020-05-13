@@ -10,9 +10,12 @@ class ProductListPage extends Component {
 
     this.state = {
       categories: [],
-      queryName: '',
+      query: '',
+      categoryID:'',
       list: [],
     }
+    this.handleRadio = this.handleRadio.bind(this);
+    this.handleQueryButton = this.handleQueryButton.bind(this);
   }
 
   componentDidMount() {
@@ -24,34 +27,55 @@ class ProductListPage extends Component {
       <div key={id}>
         <input 
           type="radio" id={id} value={id} 
-          onClick={(e) => {
-            API.getCategory(e.target.value).then((resp) => this.setState({ list: resp.results }))
-          }} 
+          onClick={(e) => this.handleRadio(e)} 
           name="category" key={id} 
         />
-        <label htmlFor={id}>{name}</label>
+        <label data-testid="category" htmlFor={id}>{name}</label>
       </div>
     )
   }
 
+  handleRadio(event) {
+    const { query } = this.state;
+    this.setState({ categoryID: event.target.value});
+    if (query) {
+      API.getQueryNCategory(event.target.value, query)
+        .then((r) => this.setState({ list: r.results }))
+    }
+    else {
+      API.getCategory(event.target.value).then((r) => this.setState({ list: r.results }))
+    }
+    
+  }
 
-  render () {
-    const { categories, queryName, selectedCategory } = this.state
+  handleQueryButton() {
+    const { list, query, categoryID } = this.state;
+    if(list.length > 0) {
+      API.getQueryNCategory(categoryID, query).then((r) => this.setState({ list: r.results }))
+    }
+    else {
+      API.getQuery(query).then((r) => this.setState({ list: r.results }))
+    }
+  }
+
+
+  render() {
+    const { categories, query } = this.state
     return(
       <div className="container">
         <div className="header">
-          <input type="text" value={queryName} onChange={(e) => this.setState({ queryName: e.target.value})} />
-          <button type="button" ><Link to='/shoppingcart'>CART</Link></button>
+          <input type="text" data-testid="query-input" value={query} 
+            onChange={(e) => this.setState({ query: e.target.value})} 
+          />
+          <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
+            BUSCA
+          </button>
         </div>
         <div className="inner-container">
           <div className="categories-container">
             {categories.map((category) => this.categoryList(category.id, category.name))}
-            <div>
-              <input type="radio" id="clear" value="" onClick={() => this.setState({ list: [] })} name="category" />
-              <label htmlFor="clear">Limpar</label>
-            </div>
           </div>
-          <ProductList category={selectedCategory} list={this.state.list} />
+          <ProductList list={this.state.list} />
         </div>
       </div>
     )
