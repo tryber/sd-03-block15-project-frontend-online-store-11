@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as API from '../../services/api';
 import ProductList from '../../components/ProductList';
 import './productlistpage.css';
@@ -36,6 +37,7 @@ class ProductListPage extends Component {
     );
   }
 
+
   handleRadio(event) {
     const { query } = this.state;
     const categoryID = event.target.value;
@@ -57,22 +59,36 @@ class ProductListPage extends Component {
     }
   }
 
+  renderHeader() {
+    const { query } = this.state;
+    return (
+      <div className="header">
+        <input
+          type="text"
+          data-testid="query-input"
+          value={query}
+          onChange={(e) => this.setState({ query: e.target.value })}
+        />
+        <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
+          BUSCA
+        </button>
+        <Link to="/shoppingcart">
+          <button
+            type="button"
+            className="cart"
+          >
+            <p>??</p>
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   render() {
-    const { categories, query, productsList } = this.state;
+    const { categories, productsList } = this.state;
     return (
       <div className="container">
-        <div className="header">
-          <input
-            type="text"
-            data-testid="query-input"
-            value={query}
-            onChange={(e) => this.setState({ query: e.target.value })}
-          />
-          <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
-            BUSCA
-          </button>
-        </div>
+        {this.renderHeader()}
         <div className="inner-container">
           <div className="categories-container">
             {categories.map(({ id, name }) => this.categoryList(id, name))}

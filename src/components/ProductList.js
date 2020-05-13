@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class ProductList extends Component {
   render() {
     const { productsList } = this.props;
-
     if (productsList.length > 0) {
       return (
         <div className="product-list">
