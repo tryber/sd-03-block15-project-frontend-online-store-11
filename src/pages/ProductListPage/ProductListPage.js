@@ -59,7 +59,7 @@ class ProductListPage extends Component {
 
 
   render() {
-    const { categories, query } = this.state;
+    const { categories, query, list } = this.state;
     return (
       <div className="container">
         <div className="header">
@@ -77,7 +77,7 @@ class ProductListPage extends Component {
           <div className="categories-container">
             {categories.map((category) => this.categoryList(category.id, category.name))}
           </div>
-          <ProductList list={this.state.list} />
+          <ProductList list={list} />
         </div>
       </div>
     );
