@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../pages/PLP.css';
 
 class ProductList extends Component {
   render() {

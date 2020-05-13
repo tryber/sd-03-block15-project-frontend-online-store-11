@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import * as API from '../services/api';
-import './PLP.css';
-import ProductList from '../components/ProductList';
+import * as API from '../../services/api';
+import ProductList from '../../components/ProductList';
+import './productlistpage.css';
 
 class ProductListPage extends Component {
   constructor(props) {
@@ -25,9 +25,12 @@ class ProductListPage extends Component {
     return (
       <div key={id}>
         <input
-          type="radio" id={id} value={id}
+          type="radio"
+          id={id}
+          value={id}
           onClick={(e) => this.handleRadio(e)}
-          name="category" key={id}
+          name="category"
+          key={id}
         />
         <label data-testid="category" htmlFor={id}>{name}</label>
       </div>
@@ -56,12 +59,14 @@ class ProductListPage extends Component {
 
 
   render() {
-    const { categories, query } = this.state;
+    const { categories, query, list } = this.state;
     return (
       <div className="container">
         <div className="header">
           <input
-            type="text" data-testid="query-input" value={query}
+            type="text"
+            data-testid="query-input"
+            value={query}
             onChange={(e) => this.setState({ query: e.target.value })}
           />
           <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
@@ -72,12 +77,11 @@ class ProductListPage extends Component {
           <div className="categories-container">
             {categories.map((category) => this.categoryList(category.id, category.name))}
           </div>
-          <ProductList list={this.state.list} />
+          <ProductList list={list} />
         </div>
       </div>
     );
   }
-
 }
 
 export default ProductListPage;
