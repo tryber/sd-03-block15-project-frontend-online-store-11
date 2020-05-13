@@ -12,7 +12,7 @@ class ProductList extends Component {
         </div>
       );
     }
-  
+
     return (
       <div data-testid="home-initial-message" className="product-list">
         Digite algum termo de pesquisa ou escolha uma categoria.

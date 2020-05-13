@@ -24,7 +24,7 @@ class ProductListPage extends Component {
   categoryList(id, name) {
     return (
       <div key={id}>
-        <input 
+        <input
           type="radio" id={id} value={id}
           onClick={(e) => this.handleRadio(e)}
           name="category" key={id}
@@ -60,7 +60,7 @@ class ProductListPage extends Component {
     return (
       <div className="container">
         <div className="header">
-          <input 
+          <input
             type="text" data-testid="query-input" value={query}
             onChange={(e) => this.setState({ query: e.target.value })}
           />
