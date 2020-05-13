@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as API from '../../services/api';
 import ProductList from '../../components/ProductList';
 import './productlistpage.css';
@@ -6,12 +7,11 @@ import './productlistpage.css';
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       categories: [],
       query: '',
       categoryID: '',
-      list: [],
+      productsList: [],
     };
     this.handleRadio = this.handleRadio.bind(this);
     this.handleQueryButton = this.handleQueryButton.bind(this);
@@ -31,11 +31,13 @@ class ProductListPage extends Component {
           onClick={(e) => this.handleRadio(e)}
           name="category"
           key={id}
+          data-testid="category"
         />
-        <label data-testid="category" htmlFor={id}>{name}</label>
+        <label htmlFor={id}>{name}</label>
       </div>
     );
   }
+
 
   handleRadio(event) {
     const { query } = this.state;
@@ -57,27 +59,42 @@ class ProductListPage extends Component {
     }
   }
 
+  renderHeader() {
+    const { query } = this.state;
+    return (
+      <div className="header">
+        <input
+          type="text"
+          data-testid="query-input"
+          value={query}
+          onChange={(e) => this.setState({ query: e.target.value })}
+        />
+        <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
+          BUSCA
+        </button>
+        <Link to="/shoppingcart">
+          <button
+            type="button"
+            className="cart"
+            data-testid="shopping-cart-button"
+          >
+            <p>??</p>
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   render() {
-    const { categories, query, list } = this.state;
+    const { categories, productsList } = this.state;
     return (
       <div className="container">
-        <div className="header">
-          <input
-            type="text"
-            data-testid="query-input"
-            value={query}
-            onChange={(e) => this.setState({ query: e.target.value })}
-          />
-          <button type="button" data-testid="query-button" onClick={this.handleQueryButton}>
-            BUSCA
-          </button>
-        </div>
+        {this.renderHeader()}
         <div className="inner-container">
           <div className="categories-container">
-            {categories.map((category) => this.categoryList(category.id, category.name))}
+            {categories.map(({ id, name }) => this.categoryList(id, name))}
           </div>
-          <ProductList list={list} />
+          <ProductList productsList={productsList} />
         </div>
       </div>
     );
