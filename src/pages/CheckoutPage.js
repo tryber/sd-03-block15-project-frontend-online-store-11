@@ -8,9 +8,9 @@ import ReturnButtton from '../components/ReturnButton';
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = { value: '' };
   }
-  
+
   render() {
     return (
       <div>
