@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as API from '../../services/api';
-import ProductList from '../../components/ProductList';
+import ProductList from '../../components/ProductList/ProductList';
 import './productlistpage.css';
 
 class ProductListPage extends Component {

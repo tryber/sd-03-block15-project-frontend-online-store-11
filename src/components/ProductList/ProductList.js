@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './productlist.css';
+import ProductCard from '../ProductCard/ProductCard';
 
 class ProductList extends Component {
   render() {
@@ -6,11 +8,13 @@ class ProductList extends Component {
     if (productsList.length > 0) {
       return (
         <div className="product-list">
-          {productsList.map((card) => <p data-testid="product">{card.title}</p>)}
+          {list.map((card) => 
+          <ProductCard 
+            data-testid="product" title={card.title} src={card.thumbnail} price={card.price}
+          />)}
         </div>
       );
     }
-
     return (
       <div data-testid="home-initial-message" className="product-list">
         Digite algum termo de pesquisa ou escolha uma categoria.
