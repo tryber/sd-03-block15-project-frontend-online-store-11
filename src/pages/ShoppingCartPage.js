@@ -167,10 +167,9 @@ class ShoppingCart extends React.Component {
         <div className="div_content">
           {this.returnButton()}
           <div className="div_container">
-            <div>
-              <h2>Carrinho de compras: </h2>
-            </div>
-            {productsArr.map(({ title, thumbnail, price, id, quantity }) => this.createProductInfos(title, thumbnail, price, id, quantity))}
+            <h2>Carrinho de compras: </h2>
+            {productsArr.map(({ title, thumbnail, price, id, quantity }) =>
+              this.createProductInfos(title, thumbnail, price, id, quantity))}
           </div>
           <div className="div_container">
             {this.totalPrice()}
