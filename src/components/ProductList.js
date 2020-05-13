@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 class ProductList extends Component {
   render() {
-    const { list } = this.props;
+    const { productsList } = this.props;
 
-    if (list.length > 0) {
+    if (productsList.length > 0) {
       return (
         <div className="product-list">
-          {list.map((card) => <p data-testid="product">{card.title}</p>)}
+          {productsList.map((card) => <p data-testid="product">{card.title}</p>)}
         </div>
       );
     }

@@ -6,12 +6,11 @@ import './productlistpage.css';
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       categories: [],
       query: '',
       categoryID: '',
-      list: [],
+      productsList: [],
     };
     this.handleRadio = this.handleRadio.bind(this);
     this.handleQueryButton = this.handleQueryButton.bind(this);
@@ -39,27 +38,28 @@ class ProductListPage extends Component {
 
   handleRadio(event) {
     const { query } = this.state;
-    this.setState({ categoryID: event.target.value });
+    const categoryID = event.target.value;
+    this.setState({ categoryID });
     if (query) {
-      API.getProductsFromCategoryAndQuery(event.target.value, query)
-        .then((r) => this.setState({ list: r.results }));
+      API.getProductsFromCategoryAndQuery(categoryID, query)
+        .then(({ results }) => this.setState({ productsList: results }));
     } else {
-      API.getCategory(event.target.value).then((r) => this.setState({ list: r.results }));
+      API.getCategory(categoryID).then(({ results }) => this.setState({ productsList: results }));
     }
   }
 
   handleQueryButton() {
-    const { list, query, categoryID } = this.state;
-    if (list.length > 0) {
-      API.getProductsFromCategoryAndQuery(categoryID, query).then((r) => this.setState({ list: r.results }));
+    const { productsList, query, categoryID } = this.state;
+    if (productsList.length > 0) {
+      API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) => this.setState({ productsList: results }));
     } else {
-      API.getQuery(query).then((r) => this.setState({ list: r.results }));
+      API.getQuery(query).then(({ results }) => this.setState({ productsList: results }));
     }
   }
 
 
   render() {
-    const { categories, query, list } = this.state;
+    const { categories, query, productsList } = this.state;
     return (
       <div className="container">
         <div className="header">
@@ -75,9 +75,9 @@ class ProductListPage extends Component {
         </div>
         <div className="inner-container">
           <div className="categories-container">
-            {categories.map((category) => this.categoryList(category.id, category.name))}
+            {categories.map(({ id, name }) => this.categoryList(id, name))}
           </div>
-          <ProductList list={list} />
+          <ProductList productsList={productsList} />
         </div>
       </div>
     );
