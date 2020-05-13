@@ -31,8 +31,9 @@ class ProductListPage extends Component {
           onClick={(e) => this.handleRadio(e)}
           name="category"
           key={id}
+          data-testid="category"
         />
-        <label data-testid="category" htmlFor={id}>{name}</label>
+        <label htmlFor={id}>{name}</label>
       </div>
     );
   }
@@ -76,6 +77,7 @@ class ProductListPage extends Component {
           <button
             type="button"
             className="cart"
+            data-testid="shopping-cart-button"
           >
             <p>??</p>
           </button>
