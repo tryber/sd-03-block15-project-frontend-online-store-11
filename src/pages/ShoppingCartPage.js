@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import emptyCart from '../assets/carrinho-vazio.jpg';
+
 
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    const teste = JSON.parse(localStorage.getItem('products'));
+    const products = JSON.parse(localStorage.getItem('products'));
     this.state = {
       isShouldRedirect: false,
       redirectPage: '',
-      productsArr: teste,
+      productsArr: products,
     };
     this.removeFromCart = this.removeFromCart.bind(this);
     this.changeQuantity = this.changeQuantity.bind(this);
@@ -18,6 +18,7 @@ class ShoppingCart extends React.Component {
 
   componentDidUpdate() {
     const { productsArr } = this.state;
+    localStorage.setItem('products', JSON.stringify(productsArr));
     if (productsArr) {
       const totalItems = productsArr.reduce((acc, cur) => {
         const quantity = parseInt((cur.quantity), 10);
@@ -160,7 +161,6 @@ class ShoppingCart extends React.Component {
   render() {
     const { history } = this.props;
     const { productsArr, isShouldRedirect, redirectPage } = this.state;
-    localStorage.setItem('products', JSON.stringify(productsArr));
     if (isShouldRedirect) history.push(redirectPage);
     if (productsArr && (productsArr.length !== 0)) {
       return (
@@ -170,9 +170,7 @@ class ShoppingCart extends React.Component {
             <div>
               <h2>Carrinho de compras: </h2>
             </div>
-            {productsArr.map(({
-              title, thumbnail, price, id, quantity,
-            }) => this.createProductInfos(title, thumbnail, price, id, quantity))}
+            {productsArr.map(({ title, thumbnail, price, id, quantity }) => this.createProductInfos(title, thumbnail, price, id, quantity))}
           </div>
           <div className="div_container">
             {this.totalPrice()}
@@ -184,8 +182,8 @@ class ShoppingCart extends React.Component {
     return (
       <div>
         {this.returnButton()}
-        <div className="empty_content">
-          <img src={emptyCart} alt="return button" />
+        <div className="empty_content" data-testid="shopping-cart-empty-message">
+          Seu carrinho está vazio
         </div>
       </div>
     );
