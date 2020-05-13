@@ -49,7 +49,7 @@ class ProductListPage extends Component {
 
   handleQueryButton() {
     const { query, categoryID } = this.state;
-    API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) => 
+    API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) =>
       this.setState({ productsList: results }));
   }
 
