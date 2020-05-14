@@ -5,13 +5,13 @@ import '../../pages/ProductDetailsPage/productdetailspage.css';
 
 class ProductDetails extends Component {
   render() {
-    const { product } = this.props
+    const { product } = this.props;
     return (
       <div className="details">
         <div className="main-details">
           <h2 data-testid="product-detail-name">{product.title}</h2>
-            <img src={product.thumbnail} alt="thumbnail" />
-            <h3>{`R$${product.price}`}</h3>
+          <img src={product.thumbnail} alt="thumbnail" />
+          <h3>{`R$${product.price}`}</h3>
         </div>
         <div className="attributes">
           {product.attributes.map((attribute) =>

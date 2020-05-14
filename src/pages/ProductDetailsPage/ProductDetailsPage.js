@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import AddCartButton from '../../components/AddCartButton';
-import ReturnButton from '../../components/ReturnButton';
-import ProductDetails from '../../components/ProductDetails/productdetails';
-import './productdetailspage.css'
+import ProductDetails from '../../components/ProductDetails/ProductDetails';
+import './productdetailspage.css';
 
 class ProductDetailsPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
       product: {},
       review: '',
-   };
-
+    };
     this.updateState = this.updateState.bind(this);
   }
 
@@ -32,8 +29,8 @@ class ProductDetailsPage extends Component {
           <ProductDetails product={product} />
           <div className="review">
             <label htmlFor="user-review">Escreva sua avaliação do produto:</label><br />
-            <textarea 
-              data-testid="product-detail-evaluation" id="user-review" 
+            <textarea
+              data-testid="product-detail-evaluation" id="user-review"
               value={review} onChange={(e) => this.setState({ review: e.target.value })}
             />
             <button type="button" onClick={() => this.setState({ review: '' })}>Enviar</button>

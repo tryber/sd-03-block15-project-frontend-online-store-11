@@ -4,13 +4,14 @@
   flex-direction: column;
   margin: auto;
 }
+
 .details {
   align-items: center;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
-  width: 70%;
   margin: auto;
+  width: 70%;
 }
 
 .main-details {
@@ -22,8 +23,8 @@
 
 .attributes {
   border: 2px dashed black;
-  padding: 5px;
   margin: 5px;
+  padding: 5px;
 }
 
 .detail-buttons {
