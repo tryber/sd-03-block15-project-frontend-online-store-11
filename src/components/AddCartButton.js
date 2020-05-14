@@ -28,7 +28,7 @@ class AddCartButton extends Component {
 
   render() {
     return (
-      <button type="button" onClick={this.addToCart}>Adicionar ao Carrinho</button>
+      <button type="button" onClick={this.addToCart}>Adicionar ao Carrinho!</button>
     );
   }
 }
