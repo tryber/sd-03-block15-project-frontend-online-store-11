@@ -5,30 +5,35 @@ import AddCartButton from '../components/AddCartButton';
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { product: {} };
-
-    this.updateState = this.updateState.bind(this);
+    const product = JSON.parse(localStorage.getItem('productDetails'));
+    const { title, thumbnail, price, attributes, available_quantity } = product;
+    this.state = {
+      product: {
+        title,
+        thumbnail,
+        price,
+        attributes,
+        available_quantity,
+      },
+    };
   }
 
-  componentDidMount() {
-    this.updateState();
-  }
-
-  updateState() {
-    this.setState({ product: JSON.parse(localStorage.getItem('productDetails')) });
-  }
 
   render() {
     const { product } = this.state;
-    if (Object.keys(product).length > 0) {
+    if (product.title !== null) {
       return (
         <div>
           <h1 data-testid="product-detail-name">{product.title}</h1>
           <img src={product.thumbnail} alt="thumbnail" />
-          <h2>{product.price}</h2>
-          {product.attributes.map((attribute) =>
-            <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
+          <h2>
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+              minimumFractionDigits: 2,
+            }).format(product.price)}
+          </h2>
+          {product.attributes.map((attribute) => <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
           <Link to="/">Voltar</Link>
           <AddCartButton product={product} />
         </div>

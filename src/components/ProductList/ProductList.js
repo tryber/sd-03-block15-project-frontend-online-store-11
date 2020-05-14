@@ -5,7 +5,6 @@ import ProductCard from '../ProductCard/ProductCard';
 class ProductList extends Component {
   constructor(props) {
     super(props);
-
     this.saveProduct = this.saveProduct.bind(this);
   }
 
@@ -20,11 +19,19 @@ class ProductList extends Component {
     if (productsList.length > 0) {
       return (
         <div className="product-list">
-          {productsList.map((card) =>
+          {productsList.map((card) => (
             <ProductCard
-              title={card.title} src={card.thumbnail} price={card.price}
-              id={card.id} key={card.id} details={this.saveProduct}
-            />)}
+              title={card.title}
+              thumbnail={card.thumbnail}
+              price={card.price}
+              attributes={card.attributes}
+              quantity={1}
+              available_quantity={card.available_quantity}
+              id={card.id}
+              key={card.id}
+              details={this.saveProduct}
+            />
+          ))}
         </div>
       );
     }
