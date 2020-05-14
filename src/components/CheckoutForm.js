@@ -66,7 +66,7 @@ class CheckoutForm extends React.Component {
   }
 
   textblock3() {
-    const Estados = ['Estado','AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT',
+    const Estados = ['Estado', 'AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT',
       'PA', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
     return (
       <div>
