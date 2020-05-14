@@ -14,7 +14,7 @@ class Card extends Component {
           <span>{`R$${price}`}</span>
         </div>
         <div className="card-buttons">
-          <Link 
+          <Link
             data-testid="product-detail-link" to={`/products/${id}`} onClick={() => details(id)}
           >
             <button>Detalhes</button>
