@@ -1,7 +1,7 @@
 import React from 'react';
 
 class CheckoutForm extends React.Component {
-  static handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
   }
 
