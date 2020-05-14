@@ -1,6 +1,10 @@
 import React from 'react';
 
 class CheckoutForm extends React.Component {
+  static handleSubmit(event) {
+    event.preventDefault();
+  }
+
   constructor(props) {
     super(props);
     this.state = { value: '' };
@@ -9,9 +13,6 @@ class CheckoutForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static handleSubmit(event) {
-    event.preventDefault();
-  }
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -19,7 +20,7 @@ class CheckoutForm extends React.Component {
   textblock1() {
     return (
       <div>
-        <input 
+        <input
           type="text" value={this.state.value} onChange={this.handleChange}
           name="fullName" placeholder="Nome Completo"
         />
@@ -55,7 +56,7 @@ class CheckoutForm extends React.Component {
   }
 
   textblock3() {
-    const Estados = ['AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES','GO', 'MA', 'MG', 'MS', 'MT',
+    const Estados = ['AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT',
       'PA', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
     return (
       <div>
@@ -80,11 +81,10 @@ class CheckoutForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> Informações do comprador
-          {this.textblock1()}
-          {this.textblock2()}
-          {this.textblock3()}
-        </label>
+        <p>Informações do comprador</p>
+        {this.textblock1()}
+        {this.textblock2()}
+        {this.textblock3()}
       </form>
     );
   }
