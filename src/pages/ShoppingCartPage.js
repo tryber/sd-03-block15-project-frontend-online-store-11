@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    const products = JSON.parse(localStorage.getItem('products'));
+    const products = JSON.parse(localStorage.getItem('cart'));
     this.state = {
       isShouldRedirect: false,
       redirectPage: '',
@@ -18,7 +18,7 @@ class ShoppingCart extends React.Component {
 
   componentDidUpdate() {
     const { productsArr } = this.state;
-    localStorage.setItem('products', JSON.stringify(productsArr));
+    localStorage.setItem('cart', JSON.stringify(productsArr));
     if (productsArr) {
       const totalItems = productsArr.reduce((acc, cur) => {
         const quantity = parseInt((cur.quantity), 10);
