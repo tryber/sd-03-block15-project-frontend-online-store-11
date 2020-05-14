@@ -11,14 +11,13 @@ class ProductDetails extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
+  componentDidMount() {
+    this.updateState();
+  }
+
   updateState() {
     this.setState({ product: JSON.parse(localStorage.getItem('productDetails')) });
   }
-
-  componentDidMount(){
-    this.updateState();
-  }
-  
 
   render() {
     const { product } = this.state;
@@ -29,7 +28,7 @@ class ProductDetails extends Component {
           <img src={product.thumbnail} alt="thumbnail" />
           <h2>{product.price}</h2>
           {product.attributes.map((attribute) =>
-              <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
+            <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
           <Link to="/">Voltar</Link>
           <AddCartButton product={product} />
         </div>
