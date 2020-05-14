@@ -42,22 +42,14 @@ class ProductListPage extends Component {
   handleRadio(event) {
     const { query } = this.state;
     this.setState({ categoryID: event.target.value });
-    if (query) {
-      API.getProductsFromCategoryAndQuery(event.target.value, query)
-        .then((r) => this.setState({ productsList: r.results }));
-    } else {
-      API.getCategory(event.target.value).then((r) => this.setState({ productsList: r.results }));
-    }
+    API.getProductsFromCategoryAndQuery(event.target.value, query)
+      .then((r) => this.setState({ productsList: r.results }));
   }
 
   handleQueryButton() {
-    const { productsList, query, categoryID } = this.state;
-    if (productsList.length > 0) {
-      API.getProductsFromCategoryAndQuery(categoryID, query)
+    const { query, categoryID } = this.state;
+    API.getProductsFromCategoryAndQuery(categoryID, query)
       .then((r) => this.setState({ productsList: r.results }));
-    } else {
-      API.getQuery(query).then((r) => this.setState({ productsList: r.results }));
-    }
   }
 
   renderHeader() {
