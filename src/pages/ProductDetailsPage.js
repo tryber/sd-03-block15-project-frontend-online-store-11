@@ -6,7 +6,7 @@ class ProductDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { product: {}, };
+    this.state = { product: {} };
 
     this.updateState = this.updateState.bind(this);
   }
