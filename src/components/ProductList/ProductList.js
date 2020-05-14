@@ -23,7 +23,7 @@ class ProductList extends Component {
           {productsList.map((card) =>
             <ProductCard
               title={card.title} src={card.thumbnail} price={card.price}
-              id={card.id} key={card.id} details={this.saveProduct}
+              id={card.id} key={card.id} details={this.saveProduct} product={card}
             />)}
         </div>
       );
