@@ -1,6 +1,10 @@
 import React from 'react';
 
 class CheckoutForm extends React.Component {
+  static handleSubmit(event) {
+    event.preventDefault();
+  }
+
   constructor(props) {
     super(props);
     this.state = { value: '' };
@@ -13,37 +17,41 @@ class CheckoutForm extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  static handleSubmit(event) {
-    event.preventDefault();
-  }
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="fullName" placeholder="Nome Completo" />
+          onChange={this.handleChange} name="fullName" placeholder="Nome Completo"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="CPF" placeholder="CPF" />
+          onChange={this.handleChange} name="CPF" placeholder="CPF"
+        />
         <input
           type="email" value={this.state.value}
-          onChange={this.handleChange} name="email" placeholder="email" />
+          onChange={this.handleChange} name="email" placeholder="email"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="Phone" placeholder="Telefone" />
+          onChange={this.handleChange} name="Phone" placeholder="Telefone"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="fCEP" placeholder="CEP" />
+          onChange={this.handleChange} name="fCEP" placeholder="CEP"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="Address" placeholder="Endereço" />
+          onChange={this.handleChange} name="Address" placeholder="Endereço"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="Complemento" placeholder="Complemento" />
+          onChange={this.handleChange} name="Complemento" placeholder="Complemento"
+        />
         <input
           type="text" value={this.state.value}
-          onChange={this.handleChange} name="Numero" placeholder="Numero" />
+          onChange={this.handleChange} name="Numero" placeholder="Numero"
+        />
       </form>
     );
   }

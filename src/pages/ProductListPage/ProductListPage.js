@@ -51,7 +51,8 @@ class ProductListPage extends Component {
   handleQueryButton() {
     const { list, query, categoryID } = this.state;
     if (list.length > 0) {
-      API.getProductsFromCategoryAndQuery(categoryID, query).then((r) => this.setState({ list: r.results }));
+      API.getProductsFromCategoryAndQuery(categoryID, query)
+      .then((r) => this.setState({ list: r.results }));
     } else {
       API.getQuery(query).then((r) => this.setState({ list: r.results }));
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 class CheckoutItems extends React.Component {
-  render(){
+  render() {
     return null;
   }
 }
