@@ -1,39 +1,48 @@
 import React from 'react';
 
 class CheckoutForm extends React.Component {
-  handleSubmit(event) {
-    event.preventDefault();
-  }
-
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = {
+      fullName: '',
+      CPF: '',
+      email: '',
+      phone: '',
+      CEP: '',
+      Address: '',
+      Complemento: '',
+      Number:'',
+      Cidade:'',
+      Estado:'',
+    };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    const value = event.target.value;
+    this.setState({...this.state,
+      [event.target.name]: value
+    });
   }
 
   textblock1() {
     return (
       <div>
         <input
-          type="text" value={this.state.value} onChange={this.handleChange}
+          type="text" value={this.state.fullName} onChange={this.handleChange}
           name="fullName" placeholder="Nome Completo"
         />
         <input
-          type="text" value={this.state.value} onChange={this.handleChange}
+          type="text" value={this.state.CPF} onChange={this.handleChange}
           name="CPF" placeholder="CPF"
         />
         <input
-          type="email" value={this.state.value}
+          type="email" value={this.state.email}
           onChange={this.handleChange} name="email" placeholder="email"
         />
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.phone}
           onChange={this.handleChange} name="Phone" placeholder="Telefone"
         />
       </div>
@@ -44,11 +53,11 @@ class CheckoutForm extends React.Component {
     return (
       <div>
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.CEP}
           onChange={this.handleChange} name="CEP" placeholder="CEP"
         />
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.Address}
           onChange={this.handleChange} name="Address" placeholder="Endereço"
         />
       </div>
@@ -61,18 +70,18 @@ class CheckoutForm extends React.Component {
     return (
       <div>
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.Complemento}
           onChange={this.handleChange} name="Complemento" placeholder="Complemento"
         />
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.Number}
           onChange={this.handleChange} name="Numero" placeholder="Numero"
         />
         <input
-          type="text" value={this.state.value}
+          type="text" value={this.state.Cidade}
           onChange={this.handleChange} name="Cidade" placeholder="Cidade"
         />
-        <select>
+        <select value={this.state.Estado}>
           {Estados.map((ele) => <option value={ele} placeholder="Estado">{ele}</option>)}
         </select>
       </div>
@@ -80,7 +89,7 @@ class CheckoutForm extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <p>Informações do comprador</p>
         {this.textblock1()}
         {this.textblock2()}
