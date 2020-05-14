@@ -41,16 +41,23 @@ class ProductListPage extends Component {
 
   handleRadio(event) {
     const { query } = this.state;
-    const categoryID = event.target.value;
-    this.setState({ categoryID });
-    API.getProductsFromCategoryAndQuery(categoryID, query)
-      .then(({ results }) => this.setState({ productsList: results }));
+    this.setState({ categoryID: event.target.value });
+    if (query) {
+      API.getProductsFromCategoryAndQuery(event.target.value, query)
+        .then((r) => this.setState({ list: r.results }));
+    } else {
+      API.getCategory(event.target.value).then((r) => this.setState({ list: r.results }));
+    }
   }
 
   handleQueryButton() {
-    const { query, categoryID } = this.state;
-    API.getProductsFromCategoryAndQuery(categoryID, query).then(({ results }) =>
-      this.setState({ productsList: results }));
+    const { list, query, categoryID } = this.state;
+    if (list.length > 0) {
+      API.getProductsFromCategoryAndQuery(categoryID, query)
+      .then((r) => this.setState({ list: r.results }));
+    } else {
+      API.getQuery(query).then((r) => this.setState({ list: r.results }));
+    }
   }
 
   renderHeader() {
