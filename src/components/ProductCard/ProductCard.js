@@ -6,9 +6,9 @@ class Card extends Component {
   render() {
     const { title, src, price, id, details } = this.props;
     return (
-      <div className='card' data-testid="product">
+      <div className="card" data-testid="product">
         <img src={src} height="200px" alt="thumbnail" />
-        <div className='card-info'>
+        <div className="card-info">
           <p>{title}</p>
           <span>{`R$${price}`}</span>
         </div>

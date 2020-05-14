@@ -6,27 +6,32 @@ class ProductDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      product: {},
-    }
+    this.state = { product: {}, };
+
+    this.updateState = this.updateState.bind(this);
   }
 
-  componentDidMount() {
-    const product = JSON.parse(localStorage.getItem("productDetails"));
-    this.setState({ product });
+  updateState() {
+    this.setState({ product: JSON.parse(localStorage.getItem('productDetails')) });
   }
+
+  componentDidMount(){
+    this.updateState();
+  }
+  
+
   render() {
     const { product } = this.state;
-    if(Object.keys(product).length > 0){
+    if (Object.keys(product).length > 0) {
       return (
         <div>
           <h1 data-testid="product-detail-name">{product.title}</h1>
           <img src={product.thumbnail} alt="thumbnail" />
           <h2>{product.price}</h2>
-          {product.attributes.map(attribute =>
-          <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
+          {product.attributes.map((attribute) =>
+              <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
           <Link to="/">Voltar</Link>
-          <AddCartButton product={product}/>
+          <AddCartButton product={product} />
         </div>
       );
     }

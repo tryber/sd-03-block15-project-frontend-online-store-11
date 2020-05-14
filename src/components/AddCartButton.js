@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class AddCartButton extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.addToCart = this.addToCart.bind(this);
@@ -9,13 +9,13 @@ class AddCartButton extends Component {
   }
   addToCart() {
     const { product } = this.props;
-    if(!localStorage.getItem('cart')){
-      localStorage.setItem('cart', JSON.stringify([ product ]))
-    } else if(this.checkQuantity()){
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify([product]));
+    } else if (this.checkQuantity()) {
       const products = JSON.parse(localStorage.getItem('cart'));
-      localStorage.setItem('cart', JSON.stringify( [ ...products, product ] ))
+      localStorage.setItem('cart', JSON.stringify([...products, product]));
     } else {
-      alert('Estoque esgotado');
+      console.log('estoque esgotado');
     }
   }
 
@@ -23,13 +23,13 @@ class AddCartButton extends Component {
     const { product } = this.props;
     const products = JSON.parse(localStorage.getItem('cart')).filter((i) => i.id === product.id);
     const quantity = product.available_quantity;
-    return ( products.length < quantity );
+    return (products.length < quantity);
   }
 
   render() {
     return(
       <button type="button" onClick={this.addToCart}>Adicionar ao Carrinho</button>
-    )
+    );
   }
 }
 

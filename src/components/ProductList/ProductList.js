@@ -3,16 +3,16 @@ import './productlist.css';
 import ProductCard from '../ProductCard/ProductCard';
 
 class ProductList extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.saveProduct = this.saveProduct.bind(this)
+    this.saveProduct = this.saveProduct.bind(this);
   }
 
   saveProduct(productId) {
     const { productsList } = this.props;
-    const product = productsList.find(product => productId === product.id);
-    localStorage.setItem("productDetails", JSON.stringify(product));
+    const saveproduct = productsList.find((product) => productId === product.id);
+    localStorage.setItem('productDetails', JSON.stringify(saveproduct));
   }
 
   render() {
@@ -20,11 +20,11 @@ class ProductList extends Component {
     if (productsList.length > 0) {
       return (
         <div className="product-list">
-          {productsList.map((card) => 
-          <ProductCard 
-            title={card.title} src={card.thumbnail} price={card.price} 
-            id={card.id} key={card.id} details={this.saveProduct}
-          />)}
+          {productsList.map((card) =>
+            <ProductCard
+              title={card.title} src={card.thumbnail} price={card.price}
+              id={card.id} key={card.id} details={this.saveProduct}
+            />)}
         </div>
       );
     }
