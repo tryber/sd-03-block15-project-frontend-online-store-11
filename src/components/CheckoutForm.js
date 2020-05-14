@@ -11,9 +11,9 @@ class CheckoutForm extends React.Component {
       CEP: '',
       Address: '',
       Complemento: '',
-      Number:'',
-      Cidade:'',
-      Estado:'',
+      Number: '',
+      Cidade: '',
+      Estado: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,8 +21,9 @@ class CheckoutForm extends React.Component {
 
   handleChange(event) {
     const value = event.target.value;
-    this.setState({...this.state,
-      [event.target.name]: value
+    this.setState({
+      ...this.state,
+      [event.target.name]: value,
     });
   }
 
@@ -43,7 +44,7 @@ class CheckoutForm extends React.Component {
         />
         <input
           type="text" value={this.state.phone}
-          onChange={this.handleChange} name="Phone" placeholder="Telefone"
+          onChange={this.handleChange} name="phone" placeholder="Telefone"
         />
       </div>
     );
@@ -65,7 +66,7 @@ class CheckoutForm extends React.Component {
   }
 
   textblock3() {
-    const Estados = ['AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT',
+    const Estados = ['Estado','AC', 'AP', 'AL', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT',
       'PA', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
     return (
       <div>
@@ -75,13 +76,13 @@ class CheckoutForm extends React.Component {
         />
         <input
           type="text" value={this.state.Number}
-          onChange={this.handleChange} name="Numero" placeholder="Numero"
+          onChange={this.handleChange} name="Number" placeholder="Numero"
         />
         <input
           type="text" value={this.state.Cidade}
           onChange={this.handleChange} name="Cidade" placeholder="Cidade"
         />
-        <select value={this.state.Estado}>
+        <select>
           {Estados.map((ele) => <option value={ele} placeholder="Estado">{ele}</option>)}
         </select>
       </div>
