@@ -3,20 +3,21 @@ import React, { Component } from 'react';
 class AddCartButton extends Component {
   constructor(props) {
     super(props);
-
     this.addToCart = this.addToCart.bind(this);
     this.checkQuantity = this.checkQuantity.bind(this);
   }
+
   addToCart() {
-    const { product } = this.props;
+    const { product, updateCart } = this.props;
     if (!localStorage.getItem('cart')) {
       localStorage.setItem('cart', JSON.stringify([product]));
-    } else if (this.checkQuantity()) {
+      return updateCart();
+    } if (this.checkQuantity()) {
       const products = JSON.parse(localStorage.getItem('cart'));
       localStorage.setItem('cart', JSON.stringify([...products, product]));
-    } else {
-      console.log('estoque esgotado');
+      return updateCart();
     }
+    console.log('Estoque esgotado');
   }
 
   checkQuantity() {

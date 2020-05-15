@@ -5,7 +5,7 @@ import '../../pages/ProductDetailsPage/productdetailspage.css';
 
 class ProductDetails extends Component {
   render() {
-    const { product } = this.props;
+    const { product, updateCart } = this.props;
     return (
       <div className="details">
         <div className="main-details">
@@ -19,7 +19,7 @@ class ProductDetails extends Component {
         </div>
         <div className="detail-buttons">
           <ReturnButton />
-          <AddCartButton product={product} />
+          <AddCartButton product={product} updateCart={updateCart} />
         </div>
       </div>
     );
