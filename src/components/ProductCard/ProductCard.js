@@ -5,7 +5,8 @@ import AddCartButton from '../AddCartButton';
 
 class Card extends Component {
   render() {
-    const { title, src, price, id, details, product } = this.props;
+    const { title, src, price, id, details, product, updateCart } = this.props;
+
     return (
       <div className="card" data-testid="product">
         <img src={src} height="200px" alt="thumbnail" />
@@ -15,11 +16,18 @@ class Card extends Component {
         </div>
         <div className="card-buttons">
           <Link
-            data-testid="product-detail-link" to={`/products/${id}`} onClick={() => details(id)}
+            data-testid="product-detail-link"
+            to={`/products/${id}`}
+            onClick={() => details(id)}
           >
-            <button>Detalhes</button>
+            <button type="button">Detalhes</button>
           </Link>
-          <AddCartButton product={product} />
+          <AddCartButton
+            product={product}
+            updateCart={updateCart}
+            datatestid="product-add-to-cart"
+            buttonText="Adicionar ao Carrinho"
+          />
         </div>
       </div>
     );

@@ -5,7 +5,7 @@ import '../../pages/ProductDetailsPage/productdetailspage.css';
 
 class ProductDetails extends Component {
   render() {
-    const { product } = this.props;
+    const { product, updateCart } = this.props;
     return (
       <div className="details">
         <div className="main-details">
@@ -14,12 +14,16 @@ class ProductDetails extends Component {
           <h3>{`R$${product.price}`}</h3>
         </div>
         <div className="attributes">
-          {product.attributes.map((attribute) =>
-            <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
+          {product.attributes.map((attribute) => <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
         </div>
         <div className="detail-buttons">
           <ReturnButton />
-          <AddCartButton product={product} />
+          <AddCartButton
+            product={product}
+            updateCart={updateCart}
+            datatestid="product-detail-add-to-cart"
+            buttonText="Adicionar ao Carrinho"
+          />
         </div>
       </div>
     );
