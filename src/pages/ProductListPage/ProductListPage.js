@@ -7,12 +7,13 @@ import './productlistpage.css';
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
+    const size = (JSON.parse(localStorage.getItem('cart')) === null ? '' : JSON.parse(localStorage.getItem('cart')).length);
     this.state = {
       categories: [],
       query: '',
       categoryID: '',
       productsList: [],
-      cartSize: JSON.parse(localStorage.getItem('cart')).length,
+      cartSize: size,
     };
     this.handleRadio = this.handleRadio.bind(this);
     this.handleQueryButton = this.handleQueryButton.bind(this);

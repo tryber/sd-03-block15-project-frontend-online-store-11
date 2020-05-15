@@ -6,10 +6,11 @@ import './productdetailspage.css';
 class ProductDetailsPage extends Component {
   constructor(props) {
     super(props);
+    const size = (JSON.parse(localStorage.getItem('cart')) === null) ? '' : JSON.parse(localStorage.getItem('cart')).length;
     this.state = {
       product: {},
       review: '',
-      cartSize: JSON.parse(localStorage.getItem('cart')).length,
+      cartSize: size,
 
     };
     this.updateState = this.updateState.bind(this);

@@ -1,26 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './shoppingcartpage.css';
 
 
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    const products = JSON.parse(localStorage.getItem('cart'));
-    this.state = {
-      isShouldRedirect: false,
-      redirectPage: '',
-      productsArr: products,
-    };
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    this.state = { products: cart };
     this.removeFromCart = this.removeFromCart.bind(this);
-    this.changeQuantity = this.changeQuantity.bind(this);
-    this.onChangeRedirect = this.onChangeRedirect.bind(this);
   }
 
   componentDidUpdate() {
-    const { productsArr } = this.state;
-    localStorage.setItem('cart', JSON.stringify(productsArr));
-    if (productsArr) {
-      const totalItems = productsArr.reduce((acc, cur) => {
+    const { products } = this.state;
+    localStorage.setItem('cart', JSON.stringify(products));
+    if (products) {
+      const totalItems = products.reduce((acc, cur) => {
         const quantity = parseInt((cur.quantity), 10);
         return acc + quantity;
       }, 0);
@@ -28,21 +23,14 @@ class ShoppingCart extends React.Component {
     }
   }
 
-  onChangeRedirect(path) {
-    this.setState({
-      isShouldRedirect: true,
-      redirectPage: path,
-    });
-  }
-
-  changeQuantity(value, id) {
-    const { productsArr } = this.state;
-    parseInt(id, 10);
-    const teste = productsArr.findIndex((product) => product.id === id);
-    if (value === 'up') productsArr[teste].quantity += 1;
-    else if (productsArr[teste].quantity > 1) productsArr[teste].quantity -= 1;
-    this.setState({ productsArr });
-  }
+  // changeQuantity(value, id) {
+  //   const { products } = this.state;
+  //   parseInt(id, 10);
+  //   const teste = products.findIndex((product) => product.id === id);
+  //   if (value === 'up') products[teste].quantity += 1;
+  //   else if (products[teste].quantity > 1) products[teste].quantity -= 1;
+  //   this.setState({ products });
+  // }
 
   createQtdButton(quantity, id) {
     this.x = '-';
@@ -68,11 +56,11 @@ class ShoppingCart extends React.Component {
   }
 
   removeFromCart(event) {
-    const { productsArr } = this.state;
+    const { products } = this.state;
     const { id } = event.target;
-    const item = productsArr.findIndex((product) => product.id === id);
-    productsArr.splice(item, 1);
-    this.setState({ productsArr });
+    const item = products.findIndex((product) => product.id === id);
+    products.splice(item, 1);
+    this.setState({ products });
   }
 
   createRemoveButton(id) {
@@ -130,16 +118,16 @@ class ShoppingCart extends React.Component {
     this.value = 'Finalizar compra';
     return (
       <Link to="/checkout">
-        <button className="checkout_button" type="button">
-          {this.value}
+        <button className="checkout_button" type="button" data-testid="checkout-products">
+          Finalizar Compra
         </button>
       </Link>
     );
   }
 
   totalPrice() {
-    const { productsArr } = this.state;
-    let totalPrice = productsArr.reduce((acc, cur) => {
+    const { products } = this.state;
+    let totalPrice = products.reduce((acc, cur) => {
       const { quantity, realPrice } = cur;
       return acc + (quantity * realPrice);
     }, 0);
@@ -160,15 +148,15 @@ class ShoppingCart extends React.Component {
 
   render() {
     const { history } = this.props;
-    const { productsArr, isShouldRedirect, redirectPage } = this.state;
+    const { products, isShouldRedirect, redirectPage } = this.state;
     if (isShouldRedirect) history.push(redirectPage);
-    if (productsArr && (productsArr.length !== 0)) {
+    if (products && (products.length !== 0)) {
       return (
         <div className="div_content">
           {this.returnButton()}
           <div className="div_container">
             <h2>Carrinho de compras: </h2>
-            {productsArr.map(({ title, thumbnail, price, id, quantity }) =>
+            {products.map(({ title, thumbnail, price, id, quantity }) =>
               this.createProductInfos(title, thumbnail, price, id, quantity))}
           </div>
           <div className="div_container">
