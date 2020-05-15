@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AddCartButton from '../../components/AddCartButton';
 import RemoveCartButton from '../../components/RemoveCartButton';
 import ShoppingCartSize from '../../components/ShoppingCartSize/ShoppingCartSize';
+import ReturnButton from '../../components/ReturnButton';
 import './shoppingcartpage.css';
 
 
@@ -71,6 +72,27 @@ class ShoppingCart extends React.Component {
     );
   }
 
+  totalPrice() {
+    const { products } = this.state;
+    let totalPrice = products.reduce((acc, cur) => {
+      const { price } = cur;
+      return acc + price;
+    }, 0);
+    totalPrice = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(totalPrice);
+    localStorage.setItem('totalPrice', totalPrice);
+    return (
+      <div>
+        <h2>
+          {`Valor total da compra: 
+          ${totalPrice}`}
+        </h2>
+      </div>
+    );
+  }
+
   render() {
     const { products, cartSize } = this.state;
     if (products && (products.length !== 0)) {
@@ -83,14 +105,14 @@ class ShoppingCart extends React.Component {
       }, []);
       return (
         <div className="div_content">
-          {/* {this.returnButton()} */}
+          <ReturnButton />
           <ShoppingCartSize cartSize={cartSize} />
           <div className="div_container">
             <h2>Carrinho de compras: </h2>
             {filteredProducts.map((product) => this.createProductInfos(product.title, product.thumbnail, product.price, product.id, product))}
           </div>
           <div className="div_container">
-            {/* {this.totalPrice()} */}
+            {this.totalPrice()}
           </div>
           {this.checkoutButton()}
         </div>
