@@ -12,7 +12,7 @@ function ShoppingCartSize(props) {
         className="cart"
         data-testid="shopping-cart-button"
       >
-        <p>{cartSize}</p>
+        <p data-testid="shopping-cart-size">{cartSize}</p>
       </button>
     </Link>
   );

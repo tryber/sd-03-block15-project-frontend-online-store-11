@@ -14,12 +14,11 @@ class ProductDetails extends Component {
           <h3>{`R$${product.price}`}</h3>
         </div>
         <div className="attributes">
-          {product.attributes.map((attribute) =>
-            <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
+          {product.attributes.map((attribute) => <p key={attribute.id}>{`${attribute.name}: ${attribute.value_name}`}</p>)}
         </div>
         <div className="detail-buttons">
           <ReturnButton />
-          <AddCartButton product={product} updateCart={updateCart} />
+          <AddCartButton product={product} updateCart={updateCart} datatestid="product-detail-add-to-cart" />
         </div>
       </div>
     );

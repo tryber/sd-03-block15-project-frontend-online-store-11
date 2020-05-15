@@ -100,10 +100,10 @@ class ShoppingCart extends React.Component {
         <div className="align, image_content">
           <img src={thumbnail} alt={`imagem de um ${title}`} />
         </div>
-        <div className="title_content align">
+        <div className="title_content align" data-testid="shopping-cart-product-name">
           {title}
         </div>
-        <div className="align quantity_button">
+        <div className="align quantity_button" data-testid="shopping-cart-product-quantity">
           {this.createQtdButton(quantity, id)}
         </div>
         <div className="align">
@@ -182,7 +182,7 @@ class ShoppingCart extends React.Component {
       <div>
         {this.returnButton()}
         <div className="empty_content" data-testid="shopping-cart-empty-message">
-          Seu carrinho está vazio!!
+          Seu carrinho está vazio
         </div>
       </div>
     );

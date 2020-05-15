@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as API from '../../services/api';
 import ProductList from '../../components/ProductList/ProductList';
 import ShoppingCartSize from '../../components/ShoppingCartSize/ShoppingCartSize';
