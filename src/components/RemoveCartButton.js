@@ -8,7 +8,8 @@ class RemoveCartButton extends Component {
 
   removeFromCart() {
     const { product, products, updateCart } = this.props;
-    const index = products.findIndex((item) => item.id === product.id);
+    const index = products.lastIndexOf((item) => item.id === product.id);
+    console.log(index);
     products.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(products));
     return updateCart();
