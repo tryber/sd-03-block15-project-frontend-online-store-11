@@ -13,8 +13,8 @@ class Card extends Component {
         <div className="card-info">
           <p>{title}</p>
           <span>{`R$${price}`}</span>
-          {(product.shipping.free_shipping)? 
-          <span data-testid="free-shipping"><strong>Frete Grátis</strong></span> : null}
+          {(product.shipping.free_shipping) ?
+            <span data-testid="free-shipping"><strong>Frete Grátis</strong></span> : null}
         </div>
         <div className="card-buttons">
           <Link
