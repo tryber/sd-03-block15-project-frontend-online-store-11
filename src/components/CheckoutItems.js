@@ -2,7 +2,12 @@ import React from 'react';
 
 class CheckoutItems extends React.Component {
   render() {
-    return null;
+    return (
+      <div>
+        <p>Revise seus produtos</p>
+        <p>Total:</p>
+      </div>
+    )
   }
 }
 
