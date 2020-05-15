@@ -120,7 +120,7 @@ class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        {/* {this.returnButton()} */}
+        <ReturnButton />
         <div className="empty_content" data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
         </div>
