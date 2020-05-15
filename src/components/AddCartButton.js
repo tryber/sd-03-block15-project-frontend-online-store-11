@@ -17,7 +17,7 @@ class AddCartButton extends Component {
       localStorage.setItem('cart', JSON.stringify([...products, product]));
       return updateCart();
     }
-    console.log('Estoque esgotado');
+    return console.log('Sem estoque');
   }
 
   checkQuantity() {

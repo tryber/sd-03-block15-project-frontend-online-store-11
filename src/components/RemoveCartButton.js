@@ -20,7 +20,13 @@ class RemoveCartButton extends Component {
   render() {
     const { datatestid, buttonText } = this.props;
     return (
-      <button type="button" onClick={this.removeFromCart} data-testid={datatestid}>{buttonText}</button>
+      <button
+        type="button"
+        onClick={this.removeFromCart}
+        data-testid={datatestid}
+      >
+        {buttonText}
+      </button>
     );
   }
 }

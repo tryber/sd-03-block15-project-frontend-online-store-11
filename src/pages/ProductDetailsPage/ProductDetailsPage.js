@@ -30,7 +30,7 @@ class ProductDetailsPage extends Component {
   }
 
   render() {
-    const { product, review, cartSize } = this.state;   
+    const { product, review, cartSize } = this.state;
     if (Object.keys(product).length > 0) {
       return (
         <div className="details-container">

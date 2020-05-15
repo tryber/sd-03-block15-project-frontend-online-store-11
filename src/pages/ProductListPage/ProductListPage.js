@@ -25,7 +25,8 @@ class ProductListPage extends Component {
   }
 
   updateCart() {
-    this.setState({ cartSize: JSON.parse(localStorage.getItem('cart')).length });
+    const size = JSON.parse(localStorage.getItem('cart')).length;
+    this.setState({ cartSize: size });
   }
 
   categoryList(id, name) {
@@ -86,7 +87,11 @@ class ProductListPage extends Component {
           <div className="categories-container">
             {categories.map(({ id, name }) => this.categoryList(id, name))}
           </div>
-          <ProductList productsList={productsList} updateCart={this.updateCart} cartSize={cartSize} />
+          <ProductList
+            productsList={productsList}
+            updateCart={this.updateCart}
+            cartSize={cartSize}
+          />
         </div>
       </div>
     );

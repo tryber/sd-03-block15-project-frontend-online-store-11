@@ -25,9 +25,20 @@ class ShoppingCart extends React.Component {
     const quantity = products.filter((item) => item.id === id).length;
     return (
       <div className="flex_qtd_container">
-        <RemoveCartButton product={product} products={products} datatestid="product-decrease-quantity" updateCart={this.updateCart} buttonText="-" />
+        <RemoveCartButton
+          product={product}
+          products={products}
+          datatestid="product-decrease-quantity"
+          updateCart={this.updateCart}
+          buttonText="-"
+        />
         <p className="input_qtd" data-testid="shopping-cart-product-quantity">{quantity}</p>
-        <AddCartButton product={product} datatestid="product-increase-quantity" updateCart={this.updateCart} buttonText="+" />
+        <AddCartButton
+          product={product}
+          datatestid="product-increase-quantity"
+          updateCart={this.updateCart}
+          buttonText="+"
+        />
       </div>
     );
   }
@@ -93,31 +104,39 @@ class ShoppingCart extends React.Component {
     );
   }
 
-  render() {
+  filteredProducts() {
     const { products, cartSize } = this.state;
-    if (products && (products.length !== 0)) {
-      const filteredProducts = products.reduce((acc, current) => {
-        const unique = acc.find((item) => item.id === current.id);
-        if (!unique) {
-          return [...acc, current];
-        }
-        return acc;
-      }, []);
-      return (
-        <div className="div_content">
-          <ReturnButton />
-          <ShoppingCartSize cartSize={cartSize} />
-          <div className="div_container">
-            <h2>Carrinho de compras: </h2>
-            {filteredProducts.map((product) => this.createProductInfos(product.title, product.thumbnail, product.price, product.id, product))}
-          </div>
-          <div className="div_container">
-            {this.totalPrice()}
-          </div>
-          {this.checkoutButton()}
+    const filteredProducts = products.reduce((acc, current) => {
+      const unique = acc.find((item) => item.id === current.id);
+      if (!unique) {
+        return [...acc, current];
+      }
+      return acc;
+    }, []);
+    return (
+      <div className="div_content">
+        <ReturnButton />
+        <ShoppingCartSize cartSize={cartSize} />
+        <div className="div_container">
+          <h2>Carrinho de compras: </h2>
+          {filteredProducts.map((product) => this.createProductInfos(
+            product.title,
+            product.thumbnail,
+            product.price,
+            product.id,
+            product))}
         </div>
-      );
-    }
+        <div className="div_container">
+          {this.totalPrice()}
+        </div>
+        {this.checkoutButton()}
+      </div>
+    );
+  }
+
+  render() {
+    const { products } = this.state;
+    if (products && (products.length !== 0)) return this.filteredProducts();
     return (
       <div>
         <ReturnButton />

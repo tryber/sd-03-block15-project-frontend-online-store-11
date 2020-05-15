@@ -18,7 +18,12 @@ class ProductDetails extends Component {
         </div>
         <div className="detail-buttons">
           <ReturnButton />
-          <AddCartButton product={product} updateCart={updateCart} datatestid="product-detail-add-to-cart" buttonText="Adicionar ao Carrinho" />
+          <AddCartButton
+            product={product}
+            updateCart={updateCart}
+            datatestid="product-detail-add-to-cart"
+            buttonText="Adicionar ao Carrinho"
+          />
         </div>
       </div>
     );
