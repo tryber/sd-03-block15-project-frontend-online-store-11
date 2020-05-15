@@ -7,7 +7,7 @@ class CheckoutItems extends React.Component {
         <p>Revise seus produtos</p>
         <p>Total:</p>
       </div>
-    )
+    );
   }
 }
 

@@ -108,7 +108,7 @@ class CheckoutForm extends React.Component {
         />
         <select required="required" onChange={this.handleDropdown}>
           {Estados.map((ele) =>
-          <option value={ele}>{ele}</option>)}
+            <option value={ele}>{ele}</option>)}
         </select>
       </div>
     );
