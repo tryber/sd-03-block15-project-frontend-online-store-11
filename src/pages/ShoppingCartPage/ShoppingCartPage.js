@@ -1,89 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AddCartButton from '../../components/AddCartButton';
+import RemoveCartButton from '../../components/RemoveCartButton';
+import ShoppingCartSize from '../../components/ShoppingCartSize/ShoppingCartSize';
 import './shoppingcartpage.css';
 
 
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    this.state = { products: cart };
-    this.removeFromCart = this.removeFromCart.bind(this);
+    const cart = (JSON.parse(localStorage.getItem('cart')) === null ? '' : JSON.parse(localStorage.getItem('cart')));
+    this.state = { products: cart, cartSize: cart.length };
+    this.updateCart = this.updateCart.bind(this);
   }
 
-  componentDidUpdate() {
+  updateCart() {
+    const products = JSON.parse(localStorage.getItem('cart'));
+    this.setState({ products, cartSize: products.length });
+  }
+
+  quantityButtons(product, id) {
     const { products } = this.state;
-    localStorage.setItem('cart', JSON.stringify(products));
-    if (products) {
-      const totalItems = products.reduce((acc, cur) => {
-        const quantity = parseInt((cur.quantity), 10);
-        return acc + quantity;
-      }, 0);
-      localStorage.setItem('totalItems', totalItems);
-    }
-  }
-
-  // changeQuantity(value, id) {
-  //   const { products } = this.state;
-  //   parseInt(id, 10);
-  //   const teste = products.findIndex((product) => product.id === id);
-  //   if (value === 'up') products[teste].quantity += 1;
-  //   else if (products[teste].quantity > 1) products[teste].quantity -= 1;
-  //   this.setState({ products });
-  // }
-
-  createQtdButton(quantity, id) {
-    this.x = '-';
+    const quantity = products.filter((item) => item.id === id).length;
     return (
       <div className="flex_qtd_container">
-        <button
-          className="button_content"
-          type="button"
-          onClick={() => this.changeQuantity('down', id)}
-        >
-          {this.x}
-        </button>
-        <input type="input" className="input_qtd" value={quantity} />
-        <button
-          className="button_content"
-          type="button"
-          onClick={() => this.changeQuantity('up', id)}
-        >
-          +
-        </button>
+        <RemoveCartButton product={product} products={products} datatestid="product-decrease-quantity" updateCart={this.updateCart} buttonText="-" />
+        <p className="input_qtd" data-testid="shopping-cart-product-quantity">{quantity}</p>
+        <AddCartButton product={product} datatestid="product-increase-quantity" updateCart={this.updateCart} buttonText="+" />
       </div>
     );
   }
 
-  removeFromCart(event) {
+  removeAllItems(id) {
     const { products } = this.state;
-    const { id } = event.target;
-    const item = products.findIndex((product) => product.id === id);
-    products.splice(item, 1);
-    this.setState({ products });
+    const removedItem = products.filter((product) => product.id !== id);
+    localStorage.setItem('cart', JSON.stringify(removedItem));
+    return this.updateCart();
   }
 
-  createRemoveButton(id) {
-    this.x = 'x';
-    return (
-      <div>
-        <button
-          className="button_content"
-          type="button"
-          id={id}
-          onClick={this.removeFromCart}
-        >
-          {this.x}
-        </button>
-      </div>
-    );
-  }
-
-  createProductInfos(title, thumbnail, price, id, quantity) {
+  createProductInfos(title, thumbnail, price, id, product) {
     return (
       <div key={id} className="flex_cart_container">
         <div className="align">
-          {this.createRemoveButton(id)}
+          <button type="button" onClick={() => this.removeAllItems(id)}>X</button>
         </div>
         <div className="align, image_content">
           <img src={thumbnail} alt={`imagem de um ${title}`} />
@@ -91,25 +50,12 @@ class ShoppingCart extends React.Component {
         <div className="title_content align" data-testid="shopping-cart-product-name">
           {title}
         </div>
-        <div className="align quantity_button" data-testid="shopping-cart-product-quantity">
-          {this.createQtdButton(quantity, id)}
+        <div className="align quantity_button">
+          {this.quantityButtons(product, id)}
         </div>
         <div className="align">
-          {price}
+          {`R$${price}`}
         </div>
-      </div>
-    );
-  }
-
-  returnButton() {
-    return (
-      <div>
-        <button
-          label="return"
-          type="button"
-          onClick={() => this.onChangeRedirect('/')}
-          className="return-button"
-        />
       </div>
     );
   }
@@ -125,42 +71,26 @@ class ShoppingCart extends React.Component {
     );
   }
 
-  totalPrice() {
-    const { products } = this.state;
-    let totalPrice = products.reduce((acc, cur) => {
-      const { quantity, realPrice } = cur;
-      return acc + (quantity * realPrice);
-    }, 0);
-    totalPrice = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(totalPrice);
-    localStorage.setItem('totalPrice', totalPrice);
-    return (
-      <div>
-        <h2>
-          {`Valor total da compra: 
-          ${totalPrice}`}
-        </h2>
-      </div>
-    );
-  }
-
   render() {
-    const { history } = this.props;
-    const { products, isShouldRedirect, redirectPage } = this.state;
-    if (isShouldRedirect) history.push(redirectPage);
+    const { products, cartSize } = this.state;
     if (products && (products.length !== 0)) {
+      const filteredProducts = products.reduce((acc, current) => {
+        const unique = acc.find((item) => item.id === current.id);
+        if (!unique) {
+          return [...acc, current];
+        }
+        return acc;
+      }, []);
       return (
         <div className="div_content">
-          {this.returnButton()}
+          {/* {this.returnButton()} */}
+          <ShoppingCartSize cartSize={cartSize} />
           <div className="div_container">
             <h2>Carrinho de compras: </h2>
-            {products.map(({ title, thumbnail, price, id, quantity }) =>
-              this.createProductInfos(title, thumbnail, price, id, quantity))}
+            {filteredProducts.map((product) => this.createProductInfos(product.title, product.thumbnail, product.price, product.id, product))}
           </div>
           <div className="div_container">
-            {this.totalPrice()}
+            {/* {this.totalPrice()} */}
           </div>
           {this.checkoutButton()}
         </div>
@@ -168,7 +98,7 @@ class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        {this.returnButton()}
+        {/* {this.returnButton()} */}
         <div className="empty_content" data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
         </div>

@@ -22,7 +22,7 @@ class Card extends Component {
           >
             <button type="button">Detalhes</button>
           </Link>
-          <AddCartButton product={product} updateCart={updateCart} datatestid="product-add-to-cart" />
+          <AddCartButton product={product} updateCart={updateCart} datatestid="product-add-to-cart" buttonText="Adicionar ao Carrinho" />
         </div>
       </div>
     );

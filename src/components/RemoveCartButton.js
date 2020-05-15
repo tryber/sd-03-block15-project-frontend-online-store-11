@@ -7,21 +7,18 @@ class RemoveCartButton extends Component {
   }
 
   removeFromCart() {
-    const { product, updateCart } = this.props;
-    if (!localStorage.getItem('cart')) {
-      localStorage.setItem('cart', JSON.stringify([product]));
-      return updateCart();
-    } if (this.checkQuantity()) {
-      const products = JSON.parse(localStorage.getItem('cart'));
-      localStorage.setItem('cart', JSON.stringify([...products, product]));
-      return updateCart();
-    }
-    console.log('Estoque esgotado');
+    const { product, products, updateCart } = this.props;
+    const index = products.findIndex((item) => item.id === product.id);
+    products.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(products));
+    return updateCart();
   }
 
-  render() {   
+
+  render() {
+    const { datatestid, buttonText } = this.props;
     return (
-      <button type="button" onClick={this.removeFromCart} data-testid="product-decrease-quantity">Remover</button>
+      <button type="button" onClick={this.removeFromCart} data-testid={datatestid}>{buttonText}</button>
     );
   }
 }

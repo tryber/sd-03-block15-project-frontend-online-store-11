@@ -28,9 +28,9 @@ class AddCartButton extends Component {
   }
 
   render() {
-    const { datatestid } = this.props;
+    const { datatestid, buttonText } = this.props;
     return (
-      <button type="button" onClick={this.addToCart} data-testid={datatestid}>Adicionar ao Carrinho</button>
+      <button type="button" onClick={this.addToCart} data-testid={datatestid}>{buttonText}</button>
     );
   }
 }
