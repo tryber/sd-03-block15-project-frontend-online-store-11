@@ -96,7 +96,7 @@ class CheckoutItems extends React.Component {
             product))}
         </div>
         <div className="div_container">
-        <p>Total:</p>{this.totalPrice()}
+        {this.totalPrice()}
         </div>
       </div>
     );
