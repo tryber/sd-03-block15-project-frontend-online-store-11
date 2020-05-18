@@ -18,7 +18,7 @@ class CheckoutItems extends React.Component {
     return (
       <div key={id} className="flex_cart_container">
         <div className="align, image_content">
-          <img src={thumbnail} alt={`imagem de um ${title}`} />
+          <img src={thumbnail} alt={`imagem de ${title}`} />
         </div>
         <div className="title_content align" data-testid="shopping-cart-product-name">
           {title}
@@ -29,27 +29,6 @@ class CheckoutItems extends React.Component {
         <div className="align">
           {`R$${price}`}
         </div>
-      </div>
-    );
-  }
-
-  totalPrice() {
-    const { products } = this.state;
-    let totalPrice = products.reduce((acc, cur) => {
-      const { price } = cur;
-      return acc + price;
-    }, 0);
-    totalPrice = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(totalPrice);
-    localStorage.setItem('totalPrice', totalPrice);
-    return (
-      <div>
-        <h2>
-          {`Valor total da compra: 
-          ${totalPrice}`}
-        </h2>
       </div>
     );
   }
@@ -77,10 +56,10 @@ class CheckoutItems extends React.Component {
 
   filteredProducts() {
     const { products } = this.state;
-    const filteredProducts = products.reduce((acc, current) => {
-      const unique = acc.find((item) => item.id === current.id);
+    const filteredProducts = products.reduce((acc, inc) => {
+      const unique = acc.find((item) => item.id === inc.id);
       if (!unique) {
-        return [...acc, current];
+        return [...acc, inc];
       }
       return acc;
     }, []);
@@ -96,18 +75,18 @@ class CheckoutItems extends React.Component {
             product))}
         </div>
         <div className="div_container">
-        {this.totalPrice()}
+          {this.totalPrice()}
         </div>
       </div>
     );
   }
- 
+
   render() {
     const { products } = this.state;
     if (products && (products.length !== 0)) return this.filteredProducts();
     return (
       <div>
-        <div className="empty_content" data-testid="shopping-cart-empty-message">
+        <div className="empty_content" data-testid="checkout-products">
           Seu carrinho está vazio
         </div>
       </div>

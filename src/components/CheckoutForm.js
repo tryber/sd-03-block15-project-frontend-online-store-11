@@ -57,18 +57,22 @@ class CheckoutForm extends React.Component {
         <input
           type="text" value={this.state.fullName} onChange={this.handleChange}
           name="fullName" placeholder="Nome Completo" required="required"
+          data-testid="checkout-fullname"
         />
         <input
-          type="number" value={this.state.CPF} onChange={this.handleChange}
+          type="text" value={this.state.CPF} onChange={this.handleChange}
           name="CPF" placeholder="CPF" required="required"
+          data-testid="checkout-cpf"
         />
         <input
           type="email" value={this.state.email} required="required"
           onChange={this.handleChange} name="email" placeholder="email"
+          data-testid="checkout-email"
         />
         <input
-          type="number" value={this.state.phone} required="required"
+          type="text" value={this.state.phone} required="required"
           onChange={this.handleChange} name="phone" placeholder="Telefone"
+          data-testid="checkout-phone"
         />
       </div>
     );
@@ -78,12 +82,14 @@ class CheckoutForm extends React.Component {
     return (
       <div>
         <input
-          type="number" value={this.state.CEP} required="required"
+          type="text" value={this.state.CEP} required="required"
           onChange={this.handleChange} name="CEP" placeholder="CEP"
+          data-testid="checkout-cep"
         />
         <input
           type="text" value={this.state.Address} required="required"
           onChange={this.handleChange} name="Address" placeholder="Endereço"
+          data-testid="checkout-address"
         />
       </div>
     );
@@ -99,7 +105,7 @@ class CheckoutForm extends React.Component {
           onChange={this.handleChange} name="Complemento" placeholder="Complemento"
         />
         <input
-          type="number" value={this.state.Number} required="required"
+          type="text" value={this.state.Number} required="required"
           onChange={this.handleChange} name="Number" placeholder="Numero"
         />
         <input
